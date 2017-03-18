@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Stateful Mouse Clicks Example</title>
+</head>
+<body>
+  <table width=200>
+    <tr>
+      <td bgcolor="green" id="upperleft" width=100>Upper Left</td>
+      <td bgcolor="red" id="upperright" width=100>Upper Right</td>
+    </tr>
+    <tr>
+      <td bgcolor="red" id="lowerleft" width=100>Lower Left</td>
+      <td bgcolor="green" id="lowerright" width=100>Lower Right</td>
+    </tr>
+  </table>
+<pre>
+const Rx = require(`rx-dom`);
+const mouseDownUL$ = Rx.DOM.mousedown(document.getElementById("upperleft"))
+      .map(event => "upper left")
+const mouseDownLL$ = Rx.DOM.mousedown(document.getElementById("lowerleft"))
+      .map(event => "lower left")
+const mouseDownUR$ = Rx.DOM.mousedown(document.getElementById("upperright"))
+      .map(event => "upper right")
+const mouseDownLR$ = Rx.DOM.mousedown(document.getElementById("lowerright"))
+      .map(event => "lower right")
+const greenClick$ = mouseDownUL$.merge(mouseDownLR$)
+const redClick$ = mouseDownUR$.merge(mouseDownLL$)
+
+const allClick$ = Rx.Observable.combineLatest(greenClick$, redClick$,
+                                              function(g, r) {
+                                                  return {green : g,
+                                                          red : r}
+                                              })
+
+allClick$.subscribe(console.log)
+</pre>
+<script src="./dist/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Mouse Click Example 2"/>
+  <title>Filtered Mouse Click Example</title>
+</head>
+<body>
+Like Example 1, but only if you click on the left side of the screen
+and only logs the clientX and clientY:
+<pre>
+const Rx = require(`rx-dom`);
+const mouseDown$ = Rx.DOM.mousedown(document);
+mouseDown$
+  .map(event => {return {x : event.clientX, y : event.clientY}})
+  .filter(e => e.x < 200)
+  .subscribe(console.log);
+</pre>
+  <script src="./dist/main.js"></script>
+</body>
+</html>
