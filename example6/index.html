@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Cycle.js Example</title>
+</head>
+<body>
+<pre>
+// Source code
+import Cycle from '@cycle/core';
+import CycleDOM from '@cycle/dom';
+const h = CycleDOM.h;
+
+function main(sources) {
+    return {
+        DOM : sources.DOM
+            .select('#color-choice')
+            .events('change')
+            .map(ev => ev.target.value)
+            .startWith('red')
+            .map(colorvalue =>
+                 h('div',
+                   [h('select',
+                      {id : 'color-choice'},
+                      [h('option', 'red'),
+                       h('option', 'green'),
+                       h('option', 'blue')]),
+                    h('text', colorvalue)]))
+    }
+}
+
+const drivers = {
+    DOM : CycleDOM.makeDOMDriver('#main')
+}
+
+Cycle.run(main, drivers);
+</pre>
+<hr>
+  <div id="main" />
+  <script src="./dist/main.js"></script>
+</body>
+</html>
