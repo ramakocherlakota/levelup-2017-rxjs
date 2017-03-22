@@ -4,4 +4,4 @@ const mouseDownUL$ = Rx.DOM.mousedown(document.getElementById("upperleft"))
 const mouseDownLR$ = Rx.DOM.mousedown(document.getElementById("lowerright"))
       .map(event => "lower right")
 const greenClick$ = mouseDownUL$.merge(mouseDownLR$)
-greenClick$.subscribe(console.log);
+greenClick$.subscribe(t => console.log(t));

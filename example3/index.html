@@ -6,6 +6,7 @@
   <title>Merged Mouse Clicks Example</title>
 </head>
 <body>
+  Clicking on either of the green cells genertes a log message.
   <table width=200>
     <tr>
       <td bgcolor="green" id="upperleft" width=100>Upper Left</td>
@@ -23,7 +24,7 @@ const mouseDownUL$ = Rx.DOM.mousedown(document.getElementById("upperleft"))
 const mouseDownLR$ = Rx.DOM.mousedown(document.getElementById("lowerright"))
       .map(event => "lower right")
 const greenClick$ = mouseDownUL$.merge(mouseDownLR$)
-greenClick$.subscribe(console.log);
+greenClick$.subscribe(t => console.log(t));
 </pre>
 <script src="./dist/main.js"></script>
 </body>

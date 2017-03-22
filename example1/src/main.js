@@ -1,3 +1,3 @@
 const Rx = require(`rx-dom`);
 const mouseDown$ = Rx.DOM.mousedown(document);
-mouseDown$.subscribe(console.log);
+mouseDown$.subscribe(t => console.log(t));

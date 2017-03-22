@@ -7,4 +7,4 @@ function increment(x) {
 
 const clickCounter$ = mouseDown$.scan(increment, 0)
 
-clickCounter$.subscribe(console.log)
+clickCounter$.subscribe(t => console.log(t))
